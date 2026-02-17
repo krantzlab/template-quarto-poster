@@ -2,7 +2,6 @@
 .asset-cache/
 
 # Quarto render output
-*.pdf
 *_files/
 
 # Quarto project files
