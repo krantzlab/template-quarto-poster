@@ -1,0 +1,4 @@
+Condition,Estimate,p
+Control,1.00,—
+Treatment A,2.50,< .01
+Treatment B,1.85,.03

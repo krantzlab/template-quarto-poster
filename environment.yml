@@ -1,0 +1,17 @@
+name: poster
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python>=3.11
+  - quarto>=1.4
+  - jupyter
+  # -- Plotting & data (add/remove as needed) --
+  - matplotlib
+  - numpy
+  - segno
+  # - pandas
+  # - seaborn
+  # - scipy
+  # - r-base           # uncomment for R code chunks
+  # - r-ggplot2

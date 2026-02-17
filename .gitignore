@@ -1,0 +1,39 @@
+# Asset fetch cache
+.asset-cache/
+
+# Quarto render output
+*.pdf
+*_files/
+
+# Quarto project files
+.quarto/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# R
+.Rhistory
+.Rproj.user/
+*.Rproj
+
+# Conda/Mamba local env (if using --prefix)
+envs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Claude Code
+.claude/
+
+/.quarto/
+**/*.quarto_ipynb

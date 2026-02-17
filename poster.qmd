@@ -1,0 +1,131 @@
+---
+title: "Poster Title"
+format:
+  poster-typst:
+    size: "48x36"
+
+# -- Poster metadata ----------------------------------------------------------
+poster-authors: "First Author, Second Author, Third Author"
+departments: "Division of Allergy Pulmonary and Critical Care Medicine, Vanderbilt University Medical Center"
+institution-logo: "figures/logo-vumc-cdsi.png"
+institution-logo-2: "figures/logo-lab.svg"
+footer-text: "Conference Name · City, Country · Year"
+footer-emails: "author@example.com"
+footer-acknowledgements: "Supported by Grant(s)"
+footer-qr: "figures/qr.svg"        # auto-generated from footer-url
+footer-qr-text: "Scan for full abstract"
+footer-url: "medsites.vumc.org/cdsi"
+footer-url-2: "krantzlab.org"
+---
+
+```{python}
+#| echo: false
+#| output: false
+
+import matplotlib
+matplotlib.use("svg")
+import matplotlib.pyplot as plt
+import numpy as np
+
+np.random.seed(42)
+x = np.linspace(0, 10, 50)
+y = 2.5 * x + np.random.normal(0, 3, 50)
+
+fig, ax = plt.subplots(figsize=(12, 8))
+ax.scatter(x, y, s=100, alpha=0.7, c="#555555", edgecolors="none")
+ax.plot(x, 2.5 * x, color="#1a1a1a", linewidth=2.5)
+ax.set_xlabel("X variable", fontsize=16, labelpad=10)
+ax.set_ylabel("Y variable", fontsize=16, labelpad=10)
+ax.tick_params(labelsize=14)
+ax.spines["top"].set_visible(False)
+ax.spines["right"].set_visible(False)
+ax.spines["left"].set_color("#cccccc")
+ax.spines["bottom"].set_color("#cccccc")
+ax.tick_params(colors="#999999")
+plt.tight_layout()
+fig.savefig("figures/results.svg", bbox_inches="tight", transparent=True)
+plt.close()
+```
+
+```{=typst}
+#v(48pt)
+
+#hero[
+  We found that X significantly increases Y by 50%,
+  providing the first direct evidence that the ABC
+  hypothesis holds under real-world conditions.
+]
+
+#v(40pt)
+
+#grid(
+  columns: (3fr, 2fr),
+  gutter: 72pt,
+
+  // ---- Left: figures ----
+  {
+    image("figures/results.svg", width: 100%)
+    v(12pt)
+    text(size: 28pt, fill: rgb("aaaaaa"))[
+      Relationship between X and Y across 50 observations.
+      Solid line shows true trend (slope = 2.5).
+    ]
+
+    v(36pt)
+
+    // Supporting table — reads from data/table.csv
+    // Workflow: export your R dataframe with write.csv(df, "data/table.csv", row.names = FALSE)
+    text(size: 28pt, fill: rgb("aaaaaa"))[
+      *Table 1.* Summary of key results.
+    ]
+    v(12pt)
+    {
+      let data = csv("data/table.csv")
+      let headers = data.at(0)
+      let rows = data.slice(1)
+      let ncols = headers.len()
+
+      table(
+        columns: (1fr,) + (auto,) * (ncols - 1),
+        align: (left,) + (center,) * (ncols - 1),
+        stroke: none,
+        inset: (x: 16pt, y: 12pt),
+        table.hline(stroke: 1.5pt + rgb("999999")),
+        table.header(..headers.map(h => text(weight: "semibold", h))),
+        table.hline(stroke: 0.75pt + rgb("cccccc")),
+        ..rows.flatten().map(cell => [#cell]),
+        table.hline(stroke: 1.5pt + rgb("999999")),
+      )
+    }
+  },
+
+  // ---- Right: supporting details ----
+  {
+    section-label[Background]
+    [
+      Brief context for the problem. What gap exists
+      in current understanding? One to two sentences max.
+    ]
+
+    v(36pt)
+
+    section-label[Approach]
+    [
+      What you did and how. Keep it tight.
+      One to two sentences.
+    ]
+
+    v(4pt)
+    align(center, $ y = beta_0 + beta_1 x + epsilon $)
+
+    v(36pt)
+
+    section-label[Key Takeaways]
+    list(
+      [First key finding in plain language],
+      [Second key finding in plain language],
+      [Third key finding in plain language],
+    )
+  },
+)
+```
